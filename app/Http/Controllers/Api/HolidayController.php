@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHolidayRequest;
-use App\Models\Country;
-use App\Models\Holiday;
 use App\Services\HolidayService;
-use Illuminate\Http\Request;
 
 class HolidayController extends Controller
 {

@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Services\CountryService;
-use App\Services\HolidayService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 use function PHPSTORM_META\map;
 
