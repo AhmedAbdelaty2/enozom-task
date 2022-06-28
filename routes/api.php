@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('sync-countries',[CountryController::class,'syncCountries']);
-Route::get('countries',[CountryController::class,'getAllCountries']);
+Route::get('countries/{perPage}/{currentPage}',[CountryController::class,'getAllCountries']);
 
 Route::get('sync-holidays/{countryId}',[HolidayController::class,'syncHolidays']);
 Route::get('holidays/{id}',[HolidayController::class,'getHolidays']);

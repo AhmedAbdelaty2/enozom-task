@@ -24,8 +24,8 @@ class CountryController extends Controller
         ],200);
     }
 
-    public function getAllCountries(){
-        $data = Country::paginate(50);
+    public function getAllCountries($perPage, $currentPage){
+        $data = Country::paginate($perPage,['*'],'page', $currentPage);
         return response($data,200);
     }
 }
