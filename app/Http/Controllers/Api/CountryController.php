@@ -15,17 +15,15 @@ class CountryController extends Controller
 
         foreach ($countries as $country) {
             if(isset($country['tld'])){
-                $addCountry = Country::updateOrCreate(
+                $updatedCountry = Country::updateOrCreate(
                     ['country_id'=>$country['tld'][0]],
                     ['country_id'=>$country['tld'][0], 'country_name'=>$country['name']['common']],
                 );
+
+                HolidayService::insertOrUpdateHolidays($updatedCountry);
             }
         }
-        
-
-        // $holidays = Http::get('https://www.googleapis.com/calendar/v3/calendars/en.mk%23holiday%40group.v.calendar.google.com/events?key=AIzaSyBpSZoCr4xUGsNzmAuxVw_WT0Q4hVW9Bos');
-        
-        // return HolidayService::insertOrUpdateHolidays('.uk');
+               
         return response([
             'message'=>'data has been updated'
         ],200);
