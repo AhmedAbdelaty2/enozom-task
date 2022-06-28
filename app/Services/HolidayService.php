@@ -35,20 +35,17 @@ class HolidayService
     }
 
     public function getHolidaysPerCountry($countryId){
-        $country = Country::where('country_id','.'.$countryId)->get()->first();
-        $holidays = Holiday::where('country_id',$country->id)->get();
+        $holidays = Holiday::where('country_id',$countryId)->get();
         return $holidays->map->format();
     }
 
-    public function insertHoliday($request){
-        $country = Country::where('country_id','.'.$request->country_id)->get()->first();
-
+    public function insertHoliday($holiday){
         $holiday = Holiday::create([
-            'holiday_id'=>$request->id,
-            'summary'=>$request->name,
-            'start'=>$request->start,
-            'end'=>$request->end,
-            'country_id'=>$country->id,
+            'holiday_id'=>$holiday->id,
+            'summary'=>$holiday->name,
+            'start'=>$holiday->start,
+            'end'=>$holiday->end,
+            'country_id'=>$holiday->country_id,
         ]);
 
         return response($holiday,200);
@@ -62,15 +59,14 @@ class HolidayService
         ], 200);
     }
 
-    public function updateHoliday($request){
-        $country = Country::where('country_id','.'.$request->country_id)->get()->first();
-        $holiday = Holiday::where('id',$request->id)->get()->first();
+    public function updateHoliday($newHoliday){
+        $holiday = Holiday::where('id',$newHoliday->id)->get()->first();
         $holiday->update([
-            'holiday_id'=>$request->id,
-            'summary'=>$request->name,
-            'start'=>$request->start,
-            'end'=>$request->end,
-            'country_id'=>$country->id,
+            'holiday_id'=>$newHoliday->id,
+            'summary'=>$newHoliday->name,
+            'start'=>$newHoliday->start,
+            'end'=>$newHoliday->end,
+            'country_id'=>$newHoliday->country_id,
         ]);
 
         return response($holiday,200);

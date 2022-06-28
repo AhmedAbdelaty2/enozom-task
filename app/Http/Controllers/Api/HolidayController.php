@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHolidayRequest;
 use App\Services\HolidayService;
+use Illuminate\Http\Request;
 
 class HolidayController extends Controller
 {
@@ -23,15 +24,15 @@ class HolidayController extends Controller
         return $this->holidayService->getHolidaysPerCountry($countryId);
     }
 
-    public function store(StoreHolidayRequest $request){
-        return $this->holidayService->insertHoliday($request);
+    public function store(StoreHolidayRequest $holiday){
+        return $this->holidayService->insertHoliday($holiday);
     }
 
     public function destroy($id){
         return $this->holidayService->deleteHoliday($id);
     }
 
-    public function update(StoreHolidayRequest $request){
-        return $this->holidayService->updateHoliday($request);
+    public function update(StoreHolidayRequest $holiday){
+        return $this->holidayService->updateHoliday($holiday);
     }
 }
