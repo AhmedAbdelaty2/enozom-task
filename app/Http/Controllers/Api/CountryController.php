@@ -19,4 +19,9 @@ class CountryController extends Controller
             'message'=>'data has been updated'
         ],200);
     }
+
+    public function getAllCountries(){
+        $data = Country::paginate(50);
+        return response($data,200);
+    }
 }

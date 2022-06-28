@@ -9,6 +9,13 @@ class Country extends Model
 {
     use HasFactory;
 
+    public function format(){
+        return[
+            'id'=>$this->country_id,
+            'name'=>$this->country_name,
+        ];
+    }
+
     protected $fillable=[
         'id',
         'country_id',
