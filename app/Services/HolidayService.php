@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 class HolidayService
 {
     public function syncHolidaysRemotely($countryId){
-        $holidays =  HolidayService::getAllHolidays($countryId);
+        $holidays = $this->getAllHolidays($countryId);
         if(isset($holidays['items'])){
             $holidays = $holidays['items'];
             foreach($holidays as $holiday){
