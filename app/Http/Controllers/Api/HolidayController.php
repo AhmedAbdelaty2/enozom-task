@@ -23,4 +23,8 @@ class HolidayController extends Controller
     public function destroy($id){
         return HolidayService::deleteHoliday($id);
     }
+
+    public function update(StoreHolidayRequest $request){
+        return HolidayService::updateHoliday($request);
+    }
 }

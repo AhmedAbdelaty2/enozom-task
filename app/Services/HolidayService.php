@@ -57,7 +57,21 @@ class HolidayService
         $holiday = Holiday::where('id',$id)->get()->first();
         $holiday->delete();
         return response([
-            'meesage'=>'holiday has been deleted successfully'
+            'message'=>'holiday has been deleted successfully'
         ], 200);
+    }
+
+    public static function updateHoliday($request){
+        $country = Country::where('country_id','.'.$request->country_id)->get()->first();
+        $holiday = Holiday::where('id',$request->id)->get()->first();
+        $holiday->update([
+            'id'=>$request->id,
+            'summary'=>$request->name,
+            'start'=>$request->start,
+            'end'=>$request->end,
+            'country_id'=>$country->id,
+        ]);
+
+        return response($holiday,200);
     }
 }

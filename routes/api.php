@@ -26,3 +26,5 @@ Route::get('countries',[CountryController::class,'getAllCountries']);
 Route::get('holidays/{id}',[HolidayController::class,'getHolidays']);
 Route::post('holidays',[HolidayController::class,'store']);
 Route::delete('holidays/{id}',[HolidayController::class,'destroy']);
+Route::put('holidays',[HolidayController::class,'update']);
+
