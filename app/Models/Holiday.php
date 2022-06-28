@@ -14,7 +14,7 @@ class Holiday extends Model
         'summary',
         'start',
         'end',
-        'city_id',
+        'country_id',
     ];
 
     public function country() {

@@ -11,8 +11,8 @@ class Country extends Model
 
     protected $fillable=[
         'id',
-        'city_id',
-        'city_name',
+        'country_id',
+        'country_name',
     ];
 
     public function holiday() {

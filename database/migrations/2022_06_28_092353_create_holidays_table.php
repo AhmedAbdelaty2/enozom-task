@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('summary');
             $table->date('start');
             $table->date('end');
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('country_id');
             $table->timestamps();
         });
     }
