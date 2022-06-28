@@ -20,9 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('sync-countries-holidays',[CountryController::class,'index']);
+Route::get('sync-countries',[CountryController::class,'syncCountries']);
 Route::get('countries',[CountryController::class,'getAllCountries']);
 
+Route::get('sync-holidays/{countryId}',[HolidayController::class,'syncHolidays']);
 Route::get('holidays/{id}',[HolidayController::class,'getHolidays']);
 Route::post('holidays',[HolidayController::class,'store']);
 Route::delete('holidays/{id}',[HolidayController::class,'destroy']);

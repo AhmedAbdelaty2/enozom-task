@@ -6,13 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Services\CountryService;
 
-use function PHPSTORM_META\map;
-
 class CountryController extends Controller
 {
-    public function index(){
+    private CountryService $countryService;
+
+    public function __construct()
+    {
+        $this->countryService = new CountryService();
+    }
+
+    public function syncCountries(){
         
-        CountryService::syncCountries();
+        $this->countryService->syncCountries();
                
         return response([
             'message'=>'data has been updated'

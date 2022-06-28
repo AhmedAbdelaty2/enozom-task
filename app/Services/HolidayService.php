@@ -8,42 +8,43 @@ use Illuminate\Support\Facades\Http;
 
 class HolidayService
 {
-    public static function syncHolidays($country){
-        $holidays = HolidayService::getAllHolidays($country);
+    public function syncHolidaysRemotely($countryId){
+        $holidays =  HolidayService::getAllHolidays($countryId);
         if(isset($holidays['items'])){
             $holidays = $holidays['items'];
             foreach($holidays as $holiday){
                 $updatedHoliday = Holiday::updateOrCreate(
                         [
-                            'id'=>$holiday['id']
+                            'holiday_id'=>$holiday['id']
                         ],
                         [
                             'summary'=>$holiday['summary'], 
                             'start'=>$holiday['start']['date'], 
                             'end'=>$holiday['end']['date'], 
-                            'country_id'=>$country['id']
+                            'country_id'=>$countryId
                         ],
                 );    
             }
         }
     }
 
-    public static function getAllHolidays($country){
+    public function getAllHolidays($countryId){
+        $country = Country::where('id',$countryId)->get()->first();
         $holidays = Http::get('https://www.googleapis.com/calendar/v3/calendars/en'.$country['country_id'].'%23holiday%40group.v.calendar.google.com/events?key=AIzaSyBpSZoCr4xUGsNzmAuxVw_WT0Q4hVW9Bos')->json();
         return $holidays;
     }
 
-    public static function getHolidaysPerCountry($countryId){
+    public function getHolidaysPerCountry($countryId){
         $country = Country::where('country_id','.'.$countryId)->get()->first();
         $holidays = Holiday::where('country_id',$country->id)->get();
         return $holidays->map->format();
     }
 
-    public static function insertHoliday($request){
+    public function insertHoliday($request){
         $country = Country::where('country_id','.'.$request->country_id)->get()->first();
 
         $holiday = Holiday::create([
-            'id'=>$request->id,
+            'holiday_id'=>$request->id,
             'summary'=>$request->name,
             'start'=>$request->start,
             'end'=>$request->end,
@@ -53,7 +54,7 @@ class HolidayService
         return response($holiday,200);
     }
 
-    public static function deleteHoliday($id){
+    public function deleteHoliday($id){
         $holiday = Holiday::where('id',$id)->get()->first();
         $holiday->delete();
         return response([
@@ -61,11 +62,11 @@ class HolidayService
         ], 200);
     }
 
-    public static function updateHoliday($request){
+    public function updateHoliday($request){
         $country = Country::where('country_id','.'.$request->country_id)->get()->first();
         $holiday = Holiday::where('id',$request->id)->get()->first();
         $holiday->update([
-            'id'=>$request->id,
+            'holiday_id'=>$request->id,
             'summary'=>$request->name,
             'start'=>$request->start,
             'end'=>$request->end,

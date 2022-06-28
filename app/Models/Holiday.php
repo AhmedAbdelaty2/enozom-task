@@ -20,7 +20,7 @@ class Holiday extends Model
     }
 
     protected $fillable=[
-        'id',
+        'holiday_id',
         'summary',
         'start',
         'end',
