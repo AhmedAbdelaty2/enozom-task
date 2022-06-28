@@ -13,6 +13,7 @@ class Holiday extends Model
 
     public function format(){
         return[
+            'id'=>$this->id,
             'name'=>$this->summary,
             'starts-at'=>$this->start,
             'ends-at'=>$this->end,

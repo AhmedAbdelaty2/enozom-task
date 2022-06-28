@@ -41,14 +41,14 @@ class HolidayService
 
     public function insertHoliday($holiday){
         $holiday = Holiday::create([
-            'holiday_id'=>$holiday->id,
+            'holiday_id'=>$holiday->holiday_id,
             'summary'=>$holiday->name,
             'start'=>$holiday->start,
             'end'=>$holiday->end,
             'country_id'=>$holiday->country_id,
         ]);
 
-        return response($holiday,200);
+        return response($holiday->format(),200);
     }
 
     public function deleteHoliday($id){
@@ -62,13 +62,13 @@ class HolidayService
     public function updateHoliday($newHoliday){
         $holiday = Holiday::where('id',$newHoliday->id)->get()->first();
         $holiday->update([
-            'holiday_id'=>$newHoliday->id,
+            'holiday_id'=>$newHoliday->holiday_id,
             'summary'=>$newHoliday->name,
             'start'=>$newHoliday->start,
             'end'=>$newHoliday->end,
             'country_id'=>$newHoliday->country_id,
         ]);
 
-        return response($holiday,200);
+        return response($holiday->format(),200);
     }
 }
