@@ -8,24 +8,30 @@ use Illuminate\Support\Facades\Http;
 
 class HolidayService
 {
-    public function syncHolidaysRemotely($countryId){
-        $holidays = $this->getAllHolidays($countryId);
-        if(isset($holidays['items'])){
-            $holidays = $holidays['items'];
-            foreach($holidays as $holiday){
-                $updatedHoliday = Holiday::updateOrCreate(
-                        [
-                            'holiday_id'=>$holiday['id']
-                        ],
-                        [
-                            'summary'=>$holiday['summary'], 
-                            'start'=>$holiday['start']['date'], 
-                            'end'=>$holiday['end']['date'], 
-                            'country_id'=>$countryId
-                        ],
-                );    
+    public function syncHolidaysRemotely(){
+        $countries = Country::all();
+        foreach($countries as $country){
+            $holidays = $this->getAllHolidays($country->id);
+            if(isset($holidays['items'])){
+                $holidays = $holidays['items'];
+                foreach($holidays as $holiday){
+                    $updatedHoliday = Holiday::updateOrCreate(
+                            [
+                                'holiday_id'=>$holiday['id']
+                            ],
+                            [
+                                'summary'=>$holiday['summary'], 
+                                'start'=>$holiday['start']['date'], 
+                                'end'=>$holiday['end']['date'], 
+                                'country_id'=>$country->id,
+                            ],
+                    );    
+                }
             }
         }
+        return response([
+            'message'=>'holidays has been sorted'
+        ], 200); 
     }
 
     public function getAllHolidays($countryId){
@@ -52,8 +58,7 @@ class HolidayService
     }
 
     public function deleteHoliday($id){
-        $holiday = Holiday::where('id',$id)->get()->first();
-        $holiday->delete();
+        $holiday = Holiday::where('id',$id)->get()->first()->delete();
         return response([
             'message'=>'holiday has been deleted successfully'
         ], 200);

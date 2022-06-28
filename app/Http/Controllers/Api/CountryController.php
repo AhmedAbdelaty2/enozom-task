@@ -25,7 +25,6 @@ class CountryController extends Controller
     }
 
     public function getAllCountries($perPage, $currentPage){
-        $data = Country::paginate($perPage,['*'],'page', $currentPage);
-        return response($data,200);
+        return $this->countryService->getPagedCountries($perPage, $currentPage);
     }
 }

@@ -19,4 +19,9 @@ class CountryService
             }
         }
     }
+
+    public function getPagedCountries($perPage, $currentPage){
+        $data = Country::paginate($perPage,['*'],'page', $currentPage);
+        return response($data,200);
+    }
 }

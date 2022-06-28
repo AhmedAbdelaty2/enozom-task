@@ -17,8 +17,8 @@ class HolidayController extends Controller
         $this->holidayService = new HolidayService();
     }
 
-    public function syncHolidays($countryId){
-        return $this->holidayService->syncHolidaysRemotely($countryId);
+    public function syncHolidays(){
+        return $this->holidayService->syncHolidaysRemotely();
     }
 
     public function getHolidays($countryId){
