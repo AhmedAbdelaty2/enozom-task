@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\HolidayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('sync-countries-holidays',[CountryController::class,'index']);
 Route::get('countries',[CountryController::class,'getAllCountries']);
+
+Route::get('holidays/{id}',[HolidayController::class,'getHolidays']);

@@ -11,6 +11,14 @@ class Holiday extends Model
 
     protected $primaryKey = 'id';
 
+    public function format(){
+        return[
+            'name'=>$this->summary,
+            'starts-at'=>$this->start,
+            'ends-at'=>$this->end,
+        ];
+    }
+
     protected $fillable=[
         'id',
         'summary',

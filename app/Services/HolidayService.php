@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Country;
 use App\Models\Holiday;
 use Illuminate\Support\Facades\Http;
 
@@ -30,5 +31,11 @@ class HolidayService
     public static function getAllHolidays($country){
         $holidays = Http::get('https://www.googleapis.com/calendar/v3/calendars/en'.$country['country_id'].'%23holiday%40group.v.calendar.google.com/events?key=AIzaSyBpSZoCr4xUGsNzmAuxVw_WT0Q4hVW9Bos')->json();
         return $holidays;
+    }
+
+    public static function getHolidaysPerCountry($countryId){
+        $country = Country::where('country_id','.'.$countryId)->get()->first();
+        $holidays = Holiday::where('country_id',$country->id)->get();
+        return $holidays->map->format();
     }
 }
