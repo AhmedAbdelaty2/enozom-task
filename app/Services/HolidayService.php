@@ -52,4 +52,12 @@ class HolidayService
 
         return response($holiday,200);
     }
+
+    public static function deleteHoliday($id){
+        $holiday = Holiday::where('id',$id)->get()->first();
+        $holiday->delete();
+        return response([
+            'meesage'=>'holiday has been deleted successfully'
+        ], 200);
+    }
 }

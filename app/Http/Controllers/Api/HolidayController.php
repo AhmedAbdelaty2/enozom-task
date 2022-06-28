@@ -20,4 +20,7 @@ class HolidayController extends Controller
         return HolidayService::insertHoliday($request);
     }
 
+    public function destroy($id){
+        return HolidayService::deleteHoliday($id);
+    }
 }
