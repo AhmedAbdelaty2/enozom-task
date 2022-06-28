@@ -24,3 +24,4 @@ Route::get('sync-countries-holidays',[CountryController::class,'index']);
 Route::get('countries',[CountryController::class,'getAllCountries']);
 
 Route::get('holidays/{id}',[HolidayController::class,'getHolidays']);
+Route::post('holidays',[HolidayController::class,'store']);

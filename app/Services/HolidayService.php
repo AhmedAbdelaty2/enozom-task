@@ -38,4 +38,18 @@ class HolidayService
         $holidays = Holiday::where('country_id',$country->id)->get();
         return $holidays->map->format();
     }
+
+    public static function insertHoliday($request){
+        $country = Country::where('country_id','.'.$request->country_id)->get()->first();
+
+        $holiday = Holiday::create([
+            'id'=>$request->id,
+            'summary'=>$request->name,
+            'start'=>$request->start,
+            'end'=>$request->end,
+            'country_id'=>$country->id,
+        ]);
+
+        return response($holiday,200);
+    }
 }
